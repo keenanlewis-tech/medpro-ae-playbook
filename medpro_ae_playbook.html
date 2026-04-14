@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedPro Disposal — AE Sales Playbook</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C8281A;
+    --red-dark: #9B1E10;
+    --red-light: #F5E8E6;
+    --charcoal: #1A1A1A;
+    --dark: #111111;
+    --mid: #4A4A4A;
+    --light: #F7F5F2;
+    --white: #FFFFFF;
+    --border: #DDD8D0;
+    --accent: #E8A020;
+    --green: #1A7A3C;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--light);
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    color: var(--white);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid var(--red);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-badge {
+    background: var(--red);
+    color: white;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 6px 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header h1 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .header h1 span { color: var(--red); }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #888;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--charcoal);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav-inner {
+    display: flex;
+    padding: 0 32px;
+    min-width: max-content;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: #888;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { color: var(--white); }
+  .nav-btn.active { color: var(--red); border-bottom-color: var(--red); }
+
+  /* CONTENT */
+  .content { display: none; max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px; }
+  .content.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-header {
+    margin-bottom: 36px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--dark);
+    line-height: 1.15;
+  }
+
+  .section-sub {
+    margin-top: 8px;
+    color: var(--mid);
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 680px;
+  }
+
+  /* CARDS */
+  .card-grid { display: grid; gap: 20px; }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 28px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover { box-shadow: 4px 4px 0 var(--red); }
+
+  .card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .card h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--dark);
+  }
+
+  .card p, .card li {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .card ul { padding-left: 18px; }
+  .card li { margin-bottom: 4px; }
+
+  /* ACCENT CARD */
+  .card-red {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .card-red .card-label { color: rgba(255,255,255,0.7); }
+  .card-red h3 { color: white; }
+  .card-red p, .card-red li { color: rgba(255,255,255,0.88); }
+
+  .card-dark {
+    background: var(--dark);
+    border-color: var(--dark);
+  }
+
+  .card-dark .card-label { color: var(--red); }
+  .card-dark h3 { color: white; }
+  .card-dark p, .card-dark li { color: #AAAAAA; }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .stat {
+    background: var(--white);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 36px;
+    color: var(--red);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  /* SCRIPT BOX */
+  .script-box {
+    background: var(--dark);
+    border-left: 4px solid var(--red);
+    padding: 24px 28px;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .script-box .script-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .script-box p {
+    color: #E0E0E0;
+    font-size: 14px;
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* OBJECTION BOX */
+  .obj-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .obj-q {
+    background: var(--red-light);
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--red-dark);
+    border-left: 4px solid var(--red);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+
+  .obj-q::after {
+    content: '▼';
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+
+  .obj-block.open .obj-q::after { transform: rotate(180deg); }
+
+  .obj-a {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+    display: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .obj-a strong { color: var(--charcoal); font-weight: 600; }
+  .obj-block.open .obj-a { display: block; }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin: 2px;
+  }
+
+  .tag-red { background: var(--red-light); color: var(--red-dark); }
+  .tag-green { background: #E3F5EA; color: var(--green); }
+  .tag-grey { background: #EEEBE6; color: var(--mid); }
+  .tag-gold { background: #FFF3DC; color: #7A5A00; }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: var(--white);
+  }
+
+  th {
+    background: var(--dark);
+    color: var(--white);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--mid);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--light); }
+
+  td strong { color: var(--charcoal); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 36px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--red);
+  }
+
+  .tl-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .tl-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--dark);
+    margin-bottom: 6px;
+  }
+
+  .tl-body {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  /* COMPETITOR */
+  .comp-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr;
+    gap: 0;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .comp-row > div {
+    background: var(--white);
+    padding: 16px 18px;
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+
+  .comp-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--dark);
+    font-family: var(--mono);
+  }
+
+  .comp-weakness { color: var(--green); font-weight: 500; }
+
+  /* INDUSTRY CARD */
+  .industry-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .industry-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .industry-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .industry-name {
+    font-family: var(--serif);
+    font-size: 22px;
+  }
+
+  .industry-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .industry-col h4 {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+
+  .industry-col p, .industry-col li {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .industry-col ul { padding-left: 16px; }
+  .industry-col li { margin-bottom: 3px; }
+
+  /* KPI TABLE */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .kpi-box {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 20px;
+  }
+
+  .kpi-box .kpi-num {
+    font-family: var(--serif);
+    font-size: 32px;
+    color: var(--red);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .kpi-box .kpi-name {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 6px;
+  }
+
+  .kpi-box .kpi-desc {
+    font-size: 12px;
+    color: #999;
+    line-height: 1.5;
+  }
+
+  /* GLOSSARY */
+  .gloss-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+  }
+
+  .gloss-term {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--red);
+    padding-top: 2px;
+  }
+
+  .gloss-def {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.65;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .industry-body { grid-template-columns: 1fr; }
+    .gloss-item { grid-template-columns: 1fr; gap: 4px; }
+    .comp-row { grid-template-columns: 1fr; }
+    .section-title { font-size: 28px; }
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  h2.sub {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--dark);
+    margin: 32px 0 16px;
+  }
+
+  .note-box {
+    background: #FFF8E6;
+    border: 1px solid #E8C96A;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 13px;
+    color: #5A4500;
+    line-height: 1.7;
+  }
+
+  .note-box strong { color: #3A2D00; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-badge">AE Playbook</div>
+      <h1>MedPro <span>Disposal</span></h1>
+    </div>
+    <div class="header-meta">
+      INBOUND SALES · FULL CYCLE AE<br>
+      VERSION 1.0 · 2025
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="show('overview')">Overview</button>
+      <button class="nav-btn" onclick="show('services')">Services</button>
+      <button class="nav-btn" onclick="show('icp')">ICP</button>
+      <button class="nav-btn" onclick="show('gtm')">GTM Strategy</button>
+      <button class="nav-btn" onclick="show('scripts')">Call Scripts</button>
+      <button class="nav-btn" onclick="show('objections')">Objections</button>
+      <button class="nav-btn" onclick="show('industries')">Industry Messaging</button>
+      <button class="nav-btn" onclick="show('competitors')">Competitors</button>
+      <button class="nav-btn" onclick="show('success')">Success Metrics</button>
+      <button class="nav-btn" onclick="show('glossary')">Medical Terms</button>
+    </div>
+  </nav>
+</div>
+
+<!-- ==================== OVERVIEW ==================== -->
+<div id="overview" class="content active">
+  <div class="section-header">
+    <div class="section-tag">Section 01 — Overview</div>
+    <h1 class="section-title">The MedPro AE Playbook</h1>
+    <p class="section-sub">Everything you need to run the full sales cycle — from first call to closed contract. Built for inbound AEs owning discovery, demo, close, and onboarding handoff.</p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><span class="stat-number">35K+</span><span class="stat-label">Active Customers</span></div>
+    <div class="stat"><span class="stat-number">48</span><span class="stat-label">States Covered</span></div>
+    <div class="stat"><span class="stat-number">30%</span><span class="stat-label">Avg Customer Savings</span></div>
+    <div class="stat"><span class="stat-number">$33M</span><span class="stat-label">Liability Insurance</span></div>
+  </div>
+
+  <div class="card-grid grid-3">
+    <div class="card card-red">
+      <div class="card-label">Our Mission</div>
+      <h3>Cost-Effective Compliance</h3>
+      <p>Founded 2009 to fix the overpricing problem in medical waste. Every AE leads with cost savings — average 20–30% vs. current provider — plus bulletproof compliance coverage.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Core Differentiators</div>
+      <h3>Why Customers Choose Us</h3>
+      <ul>
+        <li>Flat-rate, transparent pricing — no surprise fees</li>
+        <li>Prices locked year 1; capped at 6% annually</li>
+        <li>$33M liability insurance (industry-leading)</li>
+        <li>99% on-time service guarantee</li>
+        <li>Dedicated customer advocate (not a call center)</li>
+        <li>Full title transfer on RMW — you're protected</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Your Role</div>
+      <h3>Full Cycle AE</h3>
+      <ul>
+        <li>Own inbound lead from first touch to signature</li>
+        <li>Run discovery, identify waste streams + compliance gaps</li>
+        <li>Build custom quote based on location, volume, frequency</li>
+        <li>Handle objections and close against Stericycle/Sharps</li>
+        <li>Coordinate onboarding + compliance survey handoff</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="sub">The MedPro Advantage — Your Sales Foundation</h2>
+  <div class="card-grid grid-2">
+    <div class="card">
+      <div class="card-label">What You Lead With</div>
+      <h3>The Cost Conversation</h3>
+      <p>Every inbound lead is currently overpaying. Your job is to quantify what they're leaving on the table. Use the savings calculator angle: <em>"Most practices overpay by 20–30%. Let me show you what that looks like for your volume."</em> This makes the conversation concrete and urgent.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">What You Protect</div>
+      <h3>Compliance + Liability</h3>
+      <p>Cradle-to-grave liability is real — facilities remain legally responsible for their waste from generation to final disposal. MedPro assumes full title on RMW + carries $33M insurance. Lead with peace of mind: <em>"One audit fine can cost $70K+. We eliminate that risk."</em></p>
+    </div>
+    <div class="card">
+      <div class="card-label">What You Bundle</div>
+      <h3>Multi-Service Expansion</h3>
+      <p>Every deal is an opportunity to bundle. Medical waste + sharps + pharmaceutical disposal + OSHA/HIPAA training + document shredding. Bundle discounts exist — the more services, the stickier the account and the higher the ACV.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">How You Win</div>
+      <h3>Speed + Simplicity</h3>
+      <p>First collection within 7–10 business days. Free compliance check. Onboarding in 3 steps, all included. Customers under contract elsewhere can often still switch — you can help them navigate the exit. Speed-to-value is your competitive weapon.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SERVICES ==================== -->
+<div id="services" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 02 — Services</div>
+    <h1 class="section-title">MedPro Service Breakdown</h1>
+    <p class="section-sub">Know every service line, what it covers, and how to position it in a deal.</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>What It Covers</th>
+        <th>Who Needs It</th>
+        <th>Pitch Angle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Regulated Medical Waste (RMW)</strong></td>
+        <td>Red bag biohazardous waste, infectious materials, contaminated items with blood/bodily fluids. Autoclave-treated then disposed.</td>
+        <td>All healthcare facilities — clinics, dental, urgent care, hospitals, labs</td>
+        <td>Core service. Anchor the deal. Lead with flat-rate pricing vs. their variable bill.</td>
+      </tr>
+      <tr>
+        <td><strong>Sharps Disposal</strong></td>
+        <td>Used needles, syringes, scalpel blades, capillary tubes. Placed in filled sharps containers for pickup. Mail-back available for low-volume generators.</td>
+        <td>Physician offices, dental, tattoo/piercing, acupuncture, vet clinics</td>
+        <td>"A single sharps violation can cost $70K+. We handle pickup and documentation."</td>
+      </tr>
+      <tr>
+        <td><strong>Pharmaceutical Waste Disposal</strong></td>
+        <td>OTC and prescription drugs, DEA Schedule II–V controlled substances, hazardous pharma, chemo agents, expired meds. Full chain-of-custody documentation.</td>
+        <td>Pharmacies, physician offices, hospitals, long-term care, dispensaries</td>
+        <td>"Do you have expired meds in your cabinet right now? That's an EPA violation waiting to happen."</td>
+      </tr>
+      <tr>
+        <td><strong>OSHA / HIPAA Compliance Training</strong></td>
+        <td>Online 24/7 portal covering OSHA bloodborne pathogens, HazCom, DOT, EPA, HIPAA. Certifications stored in cloud. Admin dashboard for team management.</td>
+        <td>Any facility with clinical staff — required by law</td>
+        <td>"When OSHA walks in, your staff needs documented training on file. Our portal handles that automatically."</td>
+      </tr>
+      <tr>
+        <td><strong>Document & Data Destruction (Shredding)</strong></td>
+        <td>HIPAA-compliant destruction of physical patient records, PHI documents, data-bearing media.</td>
+        <td>Any HIPAA-covered entity — clinics, billing departments, hospitals</td>
+        <td>Bundle upsell. "You're already compliant on waste — let's close the loop on records too."</td>
+      </tr>
+      <tr>
+        <td><strong>Pharmaceutical Mail-Back Program</strong></td>
+        <td>Prepaid return containers for low-volume pharma generators. FDA-approved containers, USPS-approved shipping.</td>
+        <td>Small clinics, rural practices, tattoo shops, low-frequency generators</td>
+        <td>Great for small accounts or initial foot-in-the-door where scheduled pickup isn't needed yet.</td>
+      </tr>
+      <tr>
+        <td><strong>Trace Chemotherapy Waste</strong></td>
+        <td>PPE, tubing, bags contaminated with chemo agents. Specialized handling under RCRA and state hazardous waste regs.</td>
+        <td>Oncology clinics, infusion centers, hospitals with chemo programs</td>
+        <td>Niche but high-value. Competitors often miss or overcharge on this. Position as specialty expertise.</td>
+      </tr>
+      <tr>
+        <td><strong>Pathological Waste</strong></td>
+        <td>Human and animal tissue, organs, body parts from surgery or procedures.</td>
+        <td>Surgery centers, hospitals, pathology labs, veterinary</td>
+        <td>"We handle the full waste stream — no need for a separate vendor on pathological."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box" style="margin-top:24px;">
+    <strong>Bundle Strategy:</strong> Always quote at minimum RMW + OSHA training together. Add sharps if they have injection-based procedures. Add pharmaceutical if they stock prescription samples or controlled substances. The goal is 3+ services per account for stickiness and revenue protection.
+  </div>
+</div>
+
+<!-- ==================== ICP ==================== -->
+<div id="icp" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 03 — Ideal Customer Profile</div>
+    <h1 class="section-title">Who We're Selling To</h1>
+    <p class="section-sub">Prioritize accounts that are overpaying, under-compliant, or multi-location. These close fastest and expand best.</p>
+  </div>
+
+  <h2 class="sub">Tier 1 — Best Fit (Prioritize)</h2>
+  <div class="card-grid grid-3">
+    <div class="card">
+      <div class="card-label">Primary ICP</div>
+      <h3>Independent Physician Practices</h3>
+      <p>1–10 provider practices. Owner-operated or small group. Currently on Stericycle or a regional hauler. Price-sensitive. Decision maker is the Office Manager or Practice Owner — reachable in one call.</p>
+      <br>
+      <span class="tag tag-red">Fast Close</span>
+      <span class="tag tag-green">High Volume</span>
+      <span class="tag tag-gold">Bundle Ready</span>
+    </div>
+    <div class="card">
+      <div class="card-label">Primary ICP</div>
+      <h3>Dental Practices</h3>
+      <p>General dentistry, oral surgery, orthodontics. Heavy sharps and biohaz waste. Often paying too much and out of compliance on OSHA training. Practice Owner makes the call.</p>
+      <br>
+      <span class="tag tag-red">Price-Sensitive</span>
+      <span class="tag tag-green">Compliance Gap</span>
+      <span class="tag tag-gold">Bundle Ready</span>
+    </div>
+    <div class="card">
+      <div class="card-label">Primary ICP</div>
+      <h3>Urgent Care Clinics</h3>
+      <p>Single or multi-location. High patient volume, variable waste generation. Often on corporate contracts they resent. Regional Operations Managers are key — they feel the pain directly.</p>
+      <br>
+      <span class="tag tag-red">Multi-Location</span>
+      <span class="tag tag-green">Growing Fast</span>
+      <span class="tag tag-gold">High ACV</span>
+    </div>
+  </div>
+
+  <h2 class="sub">Tier 2 — Strong Fit</h2>
+  <div class="card-grid grid-3">
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Veterinary Clinics</h3>
+      <p>High sharps volume. Often unaware of compliance requirements. Low competition in this vertical. Owner-operated — fast decisions, low bureaucracy.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Clinical Laboratories</h3>
+      <p>High biohaz + sharps volume. May have pathological and pharmaceutical needs. Compliance-focused — they respond to regulatory angle.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Specialty Clinics</h3>
+      <p>Dermatology, oncology (chemo waste!), infusion centers, pain management, plastic surgery. Each vertical has specific waste streams. High-value bundle opportunities.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Ambulatory Surgery Centers</h3>
+      <p>Pathological + biohaz + pharma waste in high volume. Often multi-facility. Longer sales cycle but high ACV. Target Facilities Director or Administrator.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Pharmacies</h3>
+      <p>Primary need: pharmaceutical waste disposal. Strong compliance angle. Chain pharmacies need proof of national coverage. Independent pharmacies are fast-close.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tier 2</div>
+      <h3>Funeral Homes</h3>
+      <p>Infectious material disposal from embalming. Niche but underserved. Low competition. Decision made by owner. Easy to differentiate on service and price.</p>
+    </div>
+  </div>
+
+  <h2 class="sub">Personas — Know Your Buyer</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Persona</th>
+        <th>Title</th>
+        <th>Pain Points</th>
+        <th>What They Care About</th>
+        <th>How to Open</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>The Decider</strong></td>
+        <td>Practice Owner / Physician</td>
+        <td>Cost creep, liability exposure, wasted time on admin</td>
+        <td>ROI, liability protection, simplicity</td>
+        <td>"We save most practices 20–30%. Can I show you a quick comparison?"</td>
+      </tr>
+      <tr>
+        <td><strong>The Gatekeeper</strong></td>
+        <td>Office Manager</td>
+        <td>Vendor management, scheduling logistics, compliance deadlines</td>
+        <td>Easy billing, reliable pickup, one point of contact</td>
+        <td>"Most office managers tell me their current vendor is unpredictable. How's yours?"</td>
+      </tr>
+      <tr>
+        <td><strong>The Compliance Officer</strong></td>
+        <td>Compliance / Risk Manager</td>
+        <td>OSHA audit prep, staff training tracking, documentation gaps</td>
+        <td>Audit-readiness, documentation, liability coverage</td>
+        <td>"When was your last OSHA training? We manage all of that in one platform."</td>
+      </tr>
+      <tr>
+        <td><strong>The Multi-Site Op</strong></td>
+        <td>Regional Ops / Facilities Dir.</td>
+        <td>Inconsistent service across locations, complex billing, vendor consolidation</td>
+        <td>Standardization, national coverage, consolidated invoicing</td>
+        <td>"How many locations are you managing? We have one account structure across all 48 states."</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== GTM ==================== -->
+<div id="gtm" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 04 — Go-To-Market Strategy</div>
+    <h1 class="section-title">Full Cycle Sales Process</h1>
+    <p class="section-sub">From inbound lead to closed contract. Each stage has a goal, actions, and a clear next step.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-label">Stage 1 · Within 5 Minutes</div>
+      <div class="tl-title">Speed-to-Lead Response</div>
+      <div class="tl-body">Inbound leads go cold fast. Your goal: call within 5 minutes of form submission. Leave a voicemail + send a text + send an email. Same message, different channel. Subject line: <em>"MedPro Quote — [Practice Name]"</em>. First email previews savings range to create urgency.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Stage 2 · Call 1 (15–20 min)</div>
+      <div class="tl-title">Discovery Call</div>
+      <div class="tl-body">Goal: understand their current setup, surface pain, qualify. Uncover: current vendor, contract status, waste types generated, pickup frequency, who makes decisions. Listen for compliance gaps, billing frustration, or service failures — these are your wedges. End with a clear next step: quote call or custom proposal.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Stage 3 · Call 2 or Same-Day</div>
+      <div class="tl-title">Quote Presentation</div>
+      <div class="tl-body">Present the custom quote built on their volume, location, and frequency. Walk them through the comparison to what they're paying now. Highlight: flat-rate pricing, no hidden fees, price lock, $33M insurance. This is where you bundle — introduce training + shredding if not already discussed. CTA: get verbal yes and send DocuSign.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Stage 4 · Objection Handling</div>
+      <div class="tl-title">Address & Advance</div>
+      <div class="tl-body">Most objections are: "I'm in a contract," "I need to think about it," "My vendor is fine," or "I need to talk to my doctor." Each has a specific response (see Objections section). Your job is to advance, not overcome. Give them a reason to act now — lock in current pricing before next rate increase.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Stage 5 · Close</div>
+      <div class="tl-title">Contract & Onboarding Kickoff</div>
+      <div class="tl-body">DocuSign sent same day as verbal yes. Follow up in 24 hrs if not signed. Once signed, schedule the compliance survey (free) and first pickup within 7–10 days. Warm handoff to service team. This moment sets the tone for the lifetime relationship — make it smooth.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-label">Stage 6 · Post-Close (30 days)</div>
+      <div class="tl-title">Expand + Protect</div>
+      <div class="tl-body">30-day check-in call. Are they using the compliance portal? Any additional waste streams? Multi-location opportunities? Referral ask. This is where you protect your book and build pipeline. Happy customers refer other practices.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="sub">Revenue Targets</h2>
+  <div class="kpi-grid">
+    <div class="kpi-box">
+      <span class="kpi-num">$8K–15K</span>
+      <div class="kpi-name">Monthly New ARR Target</div>
+      <div class="kpi-desc">Based on average deal size of $1,200–2,500 ACV for single-location practices; higher for multi-site or bundled accounts.</div>
+    </div>
+    <div class="kpi-box">
+      <span class="kpi-num">6–10</span>
+      <div class="kpi-name">New Accounts / Month</div>
+      <div class="kpi-desc">Minimum monthly closed accounts to hit quota. Mix of fast-close small practices and higher-value multi-service accounts.</div>
+    </div>
+    <div class="kpi-box">
+      <span class="kpi-num">&lt;48 hrs</span>
+      <div class="kpi-name">Discovery-to-Quote</div>
+      <div class="kpi-desc">Target turnaround from first discovery call to custom quote presented. Speed signals professionalism and keeps momentum.</div>
+    </div>
+    <div class="kpi-box">
+      <span class="kpi-num">30%+</span>
+      <div class="kpi-name">Lead-to-Close Rate</div>
+      <div class="kpi-desc">Inbound leads are already interested — conversion should be high. Below 25% signals a discovery or pricing problem.</div>
+    </div>
+    <div class="kpi-box">
+      <span class="kpi-num">2.5+</span>
+      <div class="kpi-name">Services Per Account</div>
+      <div class="kpi-desc">Average services per closed account. Single-service accounts churn faster. Bundle early and often.</div>
+    </div>
+    <div class="kpi-box">
+      <span class="kpi-num">90%</span>
+      <div class="kpi-name">90-Day Retention</div>
+      <div class="kpi-desc">AE owns relationship through day 90. Healthy onboarding = long-term retention = commission protection.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<div id="scripts" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 05 — Call Scripts</div>
+    <h1 class="section-title">Scripts & Talk Tracks</h1>
+    <p class="section-sub">Adapt these to your style — the goal is natural, confident, and consultative. Never robotic.</p>
+  </div>
+
+  <h2 class="sub">Script 1 — Inbound Speed-to-Lead Call</h2>
+  <div class="script-box">
+    <div class="script-role">AE Opening (Cold Answer)</div>
+    <p>"Hi, is this [Name]? Great — this is [Your Name] calling from MedPro Disposal. I see you just submitted a request for a quote and I wanted to catch you while I had you. I promise I'll keep this quick — we typically save practices anywhere from 20 to 30% on their current disposal costs, and I just have a few questions to build you an accurate number. Do you have two or three minutes right now?"</p>
+  </div>
+
+  <div class="script-box">
+    <div class="script-role">AE Opening (Voicemail)</div>
+    <p>"Hi [Name], this is [Your Name] from MedPro Disposal — you just submitted a request for a quote on our site. I'm going to shoot you a text and an email as well, but wanted to call first. We typically save practices 20–30% on their current medical waste costs — I'd love to put together a custom number for you. Call me back at [number] or I'll try you again tomorrow morning. Thanks."</p>
+  </div>
+
+  <h2 class="sub">Script 2 — Discovery Questions</h2>
+  <div class="script-box">
+    <div class="script-role">Key Discovery Questions</div>
+    <p>
+      "Who are you currently using for medical waste?" <br><br>
+      "Are you under contract with them, and if so, when does that expire?" <br><br>
+      "What waste streams are you generating — biohazardous, sharps, any pharmaceutical or controlled substances?" <br><br>
+      "How frequently are you getting pickups right now, and is that meeting your needs?" <br><br>
+      "Have you had any compliance audits or OSHA inspections in the last year?" <br><br>
+      "What's your monthly bill looking like currently — ballpark is fine?" <br><br>
+      "Is the decision something you make on your own, or does the physician need to weigh in?"
+    </p>
+  </div>
+
+  <h2 class="sub">Script 3 — Quote Presentation</h2>
+  <div class="script-box">
+    <div class="script-role">Quote Walk-Through</div>
+    <p>"Based on what you've shared, here's what I've put together for you. Your all-in monthly cost with MedPro would be [X] — that includes your medical waste pickup on [frequency], sharps disposal, and your OSHA compliance training platform. No fuel surcharges, no environmental fees, no mystery line items — what you see is what you pay.<br><br>Compared to what you're paying now, you're looking at saving around [X%] annually. We also lock in your rate for the first year, so no surprises. And once you sign, we have you scheduled for your first pickup within 7 to 10 days. Does this look like something that makes sense for your practice?"</p>
+  </div>
+
+  <h2 class="sub">Script 4 — The Close</h2>
+  <div class="script-box">
+    <div class="script-role">Trial Close</div>
+    <p>"Everything sound good on your end? If you're ready, I can get the agreement sent over right now and we'll get you scheduled. The whole onboarding process is three steps and it's all included — no extra cost. What email should I send the DocuSign to?"</p>
+  </div>
+
+  <div class="script-box">
+    <div class="script-role">Urgency Close (if hesitant)</div>
+    <p>"I totally understand wanting to take a day to think it over — that makes sense. One thing I'll mention is that we're in a period where our pricing is locked in, but that window can shift. Given that you're already looking at [X] savings per month, every month you wait is money staying with your current vendor. If it makes sense to move forward, I'd rather get you locked in at today's rate."</p>
+  </div>
+
+  <h2 class="sub">Script 5 — Competitive Displacement (vs. Stericycle)</h2>
+  <div class="script-box">
+    <div class="script-role">Competitive Talk Track</div>
+    <p>"I hear Stericycle a lot — they're the biggest name out there, which is exactly why they have the pricing power they do. Most practices we talk to have seen annual increases of 10–15% with them. Our model is fundamentally different — we cap annual increases at 6%, we quote flat-rate, and our insurance coverage at $33M exceeds theirs. You get the same service standard — actually better because you'll have a dedicated rep, not a call center — at a fraction of the cost. Want me to do a side-by-side on your current bill?"</p>
+  </div>
+</div>
+
+<!-- ==================== OBJECTIONS ==================== -->
+<div id="objections" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 06 — Objection Handling</div>
+    <h1 class="section-title">Handle Every "No"</h1>
+    <p class="section-sub">Click each objection to reveal the full response framework.</p>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I'm happy with my current vendor."</div>
+    <div class="obj-a"><strong>Acknowledge → Reframe → Qualify:</strong><br><br>"That's great to hear — most practices aren't actively unhappy, they just don't realize what they're overpaying until we put the numbers side by side. What I've found is that 'happy' often just means 'haven't compared lately.' Can I ask — when was the last time you audited your bill against the market? Most practices overpay by 20–30% and don't know it. Takes me five minutes to show you where you stand — worst case, you confirm you have a great deal."</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I'm in a contract with my current provider."</div>
+    <div class="obj-a"><strong>Don't back down — get the details:</strong><br><br>"Totally understandable — when does it expire? [Let them answer.] Got it. A few things worth knowing: first, depending on the terms, there may be flexibility to exit, especially if they've raised rates mid-contract — that's actually a breach in some agreements. Second, even if you're locked in, we can start the process now so you're ready to flip the day it expires. Can I put a proposal together so you have it ready to go? No obligation — and it might give you leverage with your current rep when they come to renew."</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I need to talk to the doctor / partner first."</div>
+    <div class="obj-a"><strong>Qualify the decision process, then bridge:</strong><br><br>"Of course — makes total sense. Can I ask what you'd need to feel confident recommending this to them? [Listen.] What I can do is put together a one-page summary of the savings and service comparison you can share with them — it makes the conversation really easy. And if it would help, I'm happy to jump on a five-minute call with both of you so I can answer any questions directly. What's your doctor's bandwidth like this week?"</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "Your price is higher than what I'm paying now."</div>
+    <div class="obj-a"><strong>Clarify apples-to-apples:</strong><br><br>"Can I ask — what's included in what you're paying? [Let them answer.] The reason I ask is that a lot of quotes look cheaper on the surface because they don't include fuel surcharges, environmental fees, or stop fees that show up on the invoice later. Our quote is all-in — flat rate, no add-ons. I'd love to look at your last invoice together and compare line by line. In my experience, when we do that exercise, the gap usually disappears — and often flips."</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I don't need OSHA training — my staff is already trained."</div>
+    <div class="obj-a"><strong>Documentation is the issue, not training:</strong><br><br>"That's great — the question OSHA actually asks during an inspection isn't 'were your people trained?' — it's 'can you prove it?' They want dated certificates on file for every employee. If you can't produce that documentation, the training doesn't count. Our platform keeps all of that in the cloud, accessible in 30 seconds. If you've had an OSHA inspection in the last two years, how did that go on the documentation side?"</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "We're a small practice — we don't generate much waste."</div>
+    <div class="obj-a"><strong>Small generator = higher risk per incident:</strong><br><br>"Totally understand — and we work with practices of all sizes. Actually, smaller practices are often at higher risk because they're less likely to have formal compliance infrastructure in place. And a $70K OSHA fine hits a 2-person office harder than a hospital. We have mail-back options and per-bucket pricing that work really well for low-volume generators — you only pay for what you use. Let me build you a quote based on your actual volume and I think you'll be surprised how affordable it is."</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I need to think about it."</div>
+    <div class="obj-a"><strong>Surface the real objection:</strong><br><br>"Of course. Can I ask — is there a specific part of this you want to think through? Sometimes 'I need to think about it' means there's a question I haven't answered well enough. Is it the pricing, the contract terms, the timing — or something else? I want to make sure you have everything you need to feel good about this."</div>
+  </div>
+
+  <div class="obj-block" onclick="toggleObj(this)">
+    <div class="obj-q">💬 "I've never heard of MedPro Disposal."</div>
+    <div class="obj-a"><strong>Proof by numbers:</strong><br><br>"Fair question — we're not as loud as Stericycle but we've been around since 2009, serve 35,000+ healthcare providers across 48 states, and carry $33M in liability insurance — more than most of the big names. We're intentionally lower-profile because we spend money on service and pricing, not marketing. If it's helpful, I can send you our customer reviews — we have more verified testimonials online than any other provider in our space. Would that help?"</div>
+  </div>
+</div>
+
+<!-- ==================== INDUSTRIES ==================== -->
+<div id="industries" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 07 — Industry Messaging</div>
+    <h1 class="section-title">Vertical-Specific Talk Tracks</h1>
+    <p class="section-sub">Every industry has unique waste streams, compliance concerns, and buying triggers. Lead with what's relevant to them.</p>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">🦷</div>
+      <div class="industry-name">Dental Practices</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>Sharps (needles, scalpel blades, endodontic files)</li>
+          <li>Biohazardous waste (gauze, gloves, blood-contaminated material)</li>
+          <li>Amalgam waste (mercury) — separate regulatory stream</li>
+          <li>Pharmaceutical — anesthetics, expired local anesthetics</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>OSHA bloodborne pathogen compliance for dental staff</li>
+          <li>EPA amalgam separator regulations</li>
+          <li>Price creep from large dental-focused vendors</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"Most dental practices we work with were paying 20–30% more than they needed to. We handle your sharps, biohaz, and OSHA training in one flat-rate package — and when OSHA walks in, your documentation is already done."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Practice Owner (DDS/DMD) or Office Manager. Usually one decision maker. Fast close if price is right.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">🏥</div>
+      <div class="industry-name">Urgent Care Clinics</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>High-volume RMW — blood, wound care, IV materials</li>
+          <li>Sharps — high injection volume</li>
+          <li>Pharmaceutical — sample medications, expired Rx</li>
+          <li>OSHA training for rotating/part-time staff</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>Variable patient volume = unpredictable waste</li>
+          <li>Multi-location management complexity</li>
+          <li>Staff turnover creates continuous training gaps</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"Urgent care volume fluctuates, but your compliance obligations don't. We offer flexible service scheduling and our online training platform handles onboarding new staff automatically — you don't manage it, the system does."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Regional Operations Manager or Clinic Administrator for chains. Practice Owner for independents. Multi-location = higher ACV and longer cycle.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">🐾</div>
+      <div class="industry-name">Veterinary Clinics</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>Sharps — syringes, surgical instruments</li>
+          <li>Biohazardous waste — blood, tissue</li>
+          <li>Pathological — animal tissue, organs</li>
+          <li>Pharmaceutical — controlled substances (DEA-regulated)</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>Often unaware of full compliance requirements</li>
+          <li>DEA-scheduled drug disposal frequently overlooked</li>
+          <li>Smaller practices overpaying on infrequent pickup schedules</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"A lot of vets we talk to don't realize that controlled substances and sharps disposal fall under the same federal regulations as human medicine. One DEA audit without proper documentation is a career event. We handle the whole stream and keep your records audit-ready."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Veterinarian-owner. Fast decision. Motivated by fear of non-compliance once they understand the risk.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">💊</div>
+      <div class="industry-name">Pharmacies & Dispensaries</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>Expired and unused Rx medications</li>
+          <li>DEA Schedule II–V controlled substances</li>
+          <li>Hazardous pharmaceutical waste (RCRA)</li>
+          <li>Non-hazardous pharmaceutical waste</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>DEA chain-of-custody documentation requirements</li>
+          <li>EPA and state-specific hazardous waste regs</li>
+          <li>Accumulation of expired inventory = compliance liability</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"Improper pharmaceutical disposal is the #1 compliance violation pharmacies face. The DEA requires documented chain of custody on every controlled substance from the moment it's deemed waste. We handle that documentation entirely — and we'll get your first collection scheduled within 10 days."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Pharmacy Owner or Director of Pharmacy. Compliance-driven purchase — cost is secondary to risk avoidance.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">🔬</div>
+      <div class="industry-name">Clinical Laboratories</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>High-volume sharps — collection tubes, lancets</li>
+          <li>Biohazardous waste — blood specimens, cultures</li>
+          <li>Pathological — tissue samples, biopsy materials</li>
+          <li>Chemotherapy trace (if oncology adjacent)</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>CAP/CLIA compliance layered on top of OSHA</li>
+          <li>High-frequency pickup needs</li>
+          <li>Vendor reliability — missed pickups = operational disruption</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"Labs can't afford a missed pickup — you have specimen volume that doesn't stop. We guarantee 99% on-time service and you'll have a dedicated account advocate, not a call center, when something comes up. Let's build you a schedule that matches your actual volume."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Lab Director or Office Administrator. Reliability is the primary buying factor — lead with service guarantee before price.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="industry-card">
+    <div class="industry-header">
+      <div class="industry-icon">⚕️</div>
+      <div class="industry-name">Oncology / Infusion Centers</div>
+    </div>
+    <div class="industry-body">
+      <div class="industry-col">
+        <h4>Waste Streams</h4>
+        <ul>
+          <li>Trace chemotherapy waste — PPE, tubing, bags</li>
+          <li>Antineoplastic agents — highly regulated</li>
+          <li>Sharps — IV needles, catheter supplies</li>
+          <li>Pharmaceutical — controlled substance management</li>
+        </ul>
+        <br>
+        <h4>Key Pain Points</h4>
+        <ul>
+          <li>RCRA-regulated chemo waste is high-liability</li>
+          <li>Few vendors handle trace chemo properly</li>
+          <li>Staff exposure risk + documentation burden</li>
+        </ul>
+      </div>
+      <div class="industry-col">
+        <h4>Target Messaging</h4>
+        <p><em>"Chemo waste is one of the most under-served and over-charged categories in medical waste. Most of your competitors are either sending you to a specialty hauler at 3x the cost or misclassifying it. We handle trace chemo as part of your service package — properly, compliantly, and without the premium."</em></p>
+        <br>
+        <h4>Buyer</h4>
+        <p>Oncology Practice Manager or Facilities Director. High-value account. Longer cycle but significant ACV.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== COMPETITORS ==================== -->
+<div id="competitors" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 08 — Competitive Intelligence</div>
+    <h1 class="section-title">Know the Competition</h1>
+    <p class="section-sub">How to position MedPro against every major competitor you'll encounter in the field.</p>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">Stericycle</div>
+      <span class="tag tag-red">Most Common</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">Aggressive annual price increases (10–15%+), poor customer service (call center model), complex billing with fuel/energy/stop surcharges, slow response times, long-term contracts that lock in escalating rates.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "Stericycle is the cable company of medical waste — they know switching is a hassle, so they keep raising rates. We cap at 6%, bill flat-rate, and you'll have a real human rep who knows your account."
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">Sharps Compliance</div>
+      <span class="tag tag-grey">Mail-Back Focus</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">Primarily mail-back model — not ideal for regular-volume generators. Limited full-service pickup capability. No bundled compliance training. Less comprehensive insurance coverage.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "Sharps is great for very low-volume one-off disposal, but for any practice with regular waste, you need scheduled pickup, OSHA training, and a real service plan. We do all of that."
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">Clean Harbors</div>
+      <span class="tag tag-grey">Enterprise Focus</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">Primarily targets large hospital systems and industrial accounts. Small-to-mid practices often feel underserved or get assigned to junior reps. Pricing not competitive for smaller generators.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "Clean Harbors is built for enterprise. If you're a 3-provider practice, you're not their priority. With MedPro, you're a priority account from day one — dedicated rep, personalized plan."
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">BioMedical Waste Solutions</div>
+      <span class="tag tag-grey">Regional</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">Limited geographic coverage, no nationwide network for multi-location accounts, smaller insurance coverage, less robust compliance training platform.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "Regional providers work until you open a second location — then you have a problem. We're in 48 states with one account, one invoice, one service standard."
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">MedAssure Services</div>
+      <span class="tag tag-grey">Mid-Market</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">Smaller affiliate network, less brand recognition, less comprehensive insurance, limited compliance training offerings.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "We've been in this market since 2009 with 35,000+ customers. Our affiliate hauling network covers 48 states. The breadth and reliability aren't comparable."
+    </div>
+  </div>
+
+  <div class="comp-row">
+    <div>
+      <div class="comp-name">Local / Regional Haulers</div>
+      <span class="tag tag-grey">Price Competitor</span>
+    </div>
+    <div>
+      <strong>Their Weakness:</strong><br>
+      <span class="comp-weakness">No compliance training, no document shredding, limited insurance, no online compliance portal, can't support multi-state or growing practices. No customer success infrastructure.</span>
+    </div>
+    <div>
+      <strong>Your Positioning:</strong><br>
+      "Local haulers are one-trick ponies — pickup and that's it. We're a compliance partner. When your practice grows or OSHA comes calling, your local hauler can't help you. We can."
+    </div>
+  </div>
+
+  <div class="note-box" style="margin-top:24px;">
+    <strong>Competitive Rule of Thumb:</strong> Against Stericycle, lead with price and rate caps. Against regional players, lead with compliance and coverage. Against mail-back services, lead with service depth. Always anchor to $33M insurance and dedicated rep model — those are hard for anyone to match.
+  </div>
+</div>
+
+<!-- ==================== SUCCESS ==================== -->
+<div id="success" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 09 — What Success Looks Like</div>
+    <h1 class="section-title">Performance Standards</h1>
+    <p class="section-sub">Daily behaviors, weekly targets, and the 30/60/90 ramp for a new AE.</p>
+  </div>
+
+  <h2 class="sub">30 / 60 / 90 Day Ramp</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Period</th>
+        <th>Focus</th>
+        <th>Targets</th>
+        <th>Success Markers</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Day 1–30</strong></td>
+        <td>Product mastery, process, first closes</td>
+        <td>2–3 closed accounts, all services understood, quote tool proficiency</td>
+        <td>Can run a discovery call without notes; closes first account within 2 weeks</td>
+      </tr>
+      <tr>
+        <td><strong>Day 31–60</strong></td>
+        <td>Volume, speed, competitive positioning</td>
+        <td>5–7 closed accounts, sub-48hr discovery-to-quote turnaround, competitive wins</td>
+        <td>Consistent pipeline visibility; beating Stericycle on competitive deals; avg 2+ services/deal</td>
+      </tr>
+      <tr>
+        <td><strong>Day 61–90</strong></td>
+        <td>Quota attainment, expansion, referrals</td>
+        <td>6–10 closed accounts/month, first referral received, 30-day retention checks in place</td>
+        <td>At or above quota pace; proactively expanding accounts; referral pipeline started</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="sub">Daily / Weekly Activity Standards</h2>
+  <div class="card-grid grid-3">
+    <div class="card">
+      <div class="card-label">Daily Minimum</div>
+      <h3>Activity Floor</h3>
+      <ul>
+        <li>All inbound leads called within 5 min of submission</li>
+        <li>Minimum 3 follow-up touches on open pipeline</li>
+        <li>All quotes sent same day as verbal interest</li>
+        <li>CRM updated before end of day</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Weekly</div>
+      <h3>Pipeline Health</h3>
+      <ul>
+        <li>2+ new deals in active quote stage</li>
+        <li>Zero leads older than 72 hrs without contact attempt</li>
+        <li>1 referral ask per week (from closed accounts)</li>
+        <li>Weekly pipeline review with manager</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-label">Monthly</div>
+      <h3>Results</h3>
+      <ul>
+        <li>6–10 net new accounts closed</li>
+        <li>30% minimum lead-to-close conversion</li>
+        <li>2.5+ average services per account</li>
+        <li>90%+ 30-day retention on closed book</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="sub">Green Flags vs. Red Flags</h2>
+  <div class="card-grid grid-2">
+    <div class="card card-dark">
+      <div class="card-label">🟢 Green Flags — On Track</div>
+      <h3>Signs You're Winning</h3>
+      <ul>
+        <li>Leads calling you back after your voicemail</li>
+        <li>Prospects asking about bundling before you bring it up</li>
+        <li>Closing same-day or next-day after quote</li>
+        <li>Getting referrals from accounts within 30 days</li>
+        <li>Winning competitive deals against Stericycle</li>
+        <li>Discovery calls turning into demos in under 20 min</li>
+      </ul>
+    </div>
+    <div class="card card-red">
+      <div class="card-label">🔴 Red Flags — Course Correct</div>
+      <h3>Signs to Address</h3>
+      <ul>
+        <li>Conversion below 20% — pricing or discovery problem</li>
+        <li>Deals stalling at "I'll think about it" repeatedly</li>
+        <li>Single-service deals dominating pipeline</li>
+        <li>Quote turnaround taking 48+ hours</li>
+        <li>Losing competitive deals without a counteroffer</li>
+        <li>No referrals from a 30+ account book</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== GLOSSARY ==================== -->
+<div id="glossary" class="content">
+  <div class="section-header">
+    <div class="section-tag">Section 10 — Medical Terminology</div>
+    <h1 class="section-title">Know the Language</h1>
+    <p class="section-sub">Use these terms fluently in discovery and demo calls. Prospects trust AEs who speak their language.</p>
+  </div>
+
+  <div class="gloss-item">
+    <div class="gloss-term">RMW</div>
+    <div class="gloss-def"><strong>Regulated Medical Waste.</strong> Any waste that contains infectious material or is potentially infectious. Generated by healthcare facilities and subject to strict federal and state disposal regulations.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Biohazardous Waste</div>
+    <div class="gloss-def">Waste contaminated with blood or other potentially infectious materials (OPIM). Requires red bag containment and autoclave treatment or incineration prior to disposal.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Sharps</div>
+    <div class="gloss-def">Any object capable of puncturing the skin — needles, syringes, scalpel blades, lancets, capillary tubes. Must be disposed of in puncture-resistant, leak-proof containers per OSHA standards.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Bloodborne Pathogens (BBP)</div>
+    <div class="gloss-def">Microorganisms in human blood that can cause disease — HIV, HBV (Hepatitis B), HCV (Hepatitis C). OSHA's BBP Standard (29 CFR 1910.1030) requires annual employee training for all at-risk staff.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">OSHA</div>
+    <div class="gloss-def"><strong>Occupational Safety and Health Administration.</strong> Federal agency that regulates workplace safety including medical waste handling, BBP training, and PPE requirements. Fines for violations can reach $70,000+ per incident.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">HIPAA</div>
+    <div class="gloss-def"><strong>Health Insurance Portability and Accountability Act.</strong> Federal law governing the privacy and security of protected health information (PHI). Applies to document destruction and data security practices.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">PHI</div>
+    <div class="gloss-def"><strong>Protected Health Information.</strong> Any individually identifiable health information — in paper, electronic, or oral form. Improper disposal of PHI documents is a HIPAA violation.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">RCRA</div>
+    <div class="gloss-def"><strong>Resource Conservation and Recovery Act.</strong> EPA law governing the disposal of hazardous waste including certain pharmaceutical wastes. Facilities generating hazardous pharma must comply with RCRA — non-compliance carries significant EPA fines.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">DEA Scheduled Substances</div>
+    <div class="gloss-def">Controlled substances classified by the DEA in Schedules II–V based on abuse potential. Disposal requires documented chain-of-custody. Improper disposal is a federal violation — relevant for physician offices, pharmacies, and veterinary clinics.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Cradle-to-Grave Liability</div>
+    <div class="gloss-def">Federal principle holding generators legally responsible for their hazardous waste from point of generation through final disposal — even after transfer to a hauler. This is why MedPro taking full title on RMW is a significant liability protection for customers.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Autoclave</div>
+    <div class="gloss-def">A steam sterilization device that renders biohazardous waste non-infectious through high-pressure steam. MedPro uses autoclave processing — an environmentally friendly alternative to incineration.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Trace Chemo Waste</div>
+    <div class="gloss-def">Items contaminated with chemotherapy agents at low levels — gloves, tubing, bags, PPE used during chemo administration. Regulated under RCRA and requires specialized handling distinct from standard RMW.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Pathological Waste</div>
+    <div class="gloss-def">Human or animal tissue, organs, body parts, and fluids removed during surgery or autopsy. Requires specific handling distinct from standard biohazardous waste — relevant for surgical centers, hospitals, and pathology labs.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">DOT</div>
+    <div class="gloss-def"><strong>Department of Transportation.</strong> Regulates the transport of hazardous materials including medical waste. Drivers and facilities must comply with DOT packaging, labeling, and manifesting requirements.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Manifest</div>
+    <div class="gloss-def">A required shipping document that tracks hazardous waste from point of generation to final disposal. Part of the chain-of-custody documentation MedPro manages on behalf of customers.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">OPIM</div>
+    <div class="gloss-def"><strong>Other Potentially Infectious Materials.</strong> Body fluids beyond blood — cerebrospinal fluid, semen, vaginal secretions, pleural fluid, etc. — that require the same biohazard handling protocols as blood.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">PPE</div>
+    <div class="gloss-def"><strong>Personal Protective Equipment.</strong> Gloves, gowns, masks, face shields required when handling medical waste. Proper PPE use and disposal is part of OSHA compliance training.</div>
+  </div>
+  <div class="gloss-item">
+    <div class="gloss-term">Exposure Control Plan</div>
+    <div class="gloss-def">A written OSHA-required document detailing how a facility protects employees from bloodborne pathogen exposure. Must be updated annually. MedPro's compliance platform helps facilities maintain and document this plan.</div>
+  </div>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    const btns = document.querySelectorAll('.nav-btn');
+    btns.forEach(b => { if (b.getAttribute('onclick').includes(id)) b.classList.add('active'); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleObj(el) {
+    el.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
